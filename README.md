@@ -1,28 +1,46 @@
-# Image Converter — Frontend (Professional)
+# Image Converter — Fullstack (Local & Docker)
 
-This is the final polished frontend for the Image Converter app.
-Built with React + Vite + Tailwind CSS. Designed to work with the backend API at `VITE_API_URL`.
+This full-stack project is configured for local development and Docker-based deployment.
 
-## Features
-- Minimal, clean UI with blue accent
-- Drag-and-drop upload area
-- Image preview before conversion
-- Upload progress and progress bar
-- Programmatic download and success toast
-- Configurable backend URL via `.env`
+## Quick start (local)
 
-## Quick start
-1. Install dependencies
+1. Install root dev dependencies (concurrently):
+
 ```bash
 npm install
+npm install --prefix backend
+npm install --prefix frontend
 ```
-2. Run development server
+
+2. Start both frontend & backend for development:
+
 ```bash
 npm run dev
 ```
-3. Copy `.env.example` to `.env` and edit `VITE_API_URL` if needed.
 
-## Production
-Run `npm run build` to generate a production build.
-Serve the `dist/` folder with any static hosting (Vercel, Netlify, S3 + CloudFront, etc.).
+- Frontend dev server: http://localhost:5173
+- Backend API: http://localhost:5000/api/convert
 
+3. Build frontend for production and run backend to serve it:
+
+```bash
+npm run build
+NODE_ENV=production npm start
+```
+
+## Docker (local container)
+
+Build and run locally with Docker (no VPS required):
+
+```bash
+# build image
+docker build -t image-converter-fullstack .
+
+# run container mapping ports
+docker run -p 5000:5000 image-converter-fullstack
+```
+
+The Dockerfile builds the frontend and backend into a single container and serves the built frontend from Express.
+
+## Notes
+- This setup intentionally avoids any VPS-specific hosting instructions. It targets local and Docker deployment only.
