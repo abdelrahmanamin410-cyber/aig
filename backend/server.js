@@ -29,6 +29,17 @@ try {
   console.warn('⚠️ Could not clean temp directory:', err.message);
 }
 
+// Serve built frontend in production
+const CLIENT_BUILD_DIR = path.join(process.cwd(), 'frontend', 'dist');
+if (process.env.NODE_ENV === 'production') {
+  if (fs.existsSync(CLIENT_BUILD_DIR)) {
+    app.use(express.static(CLIENT_BUILD_DIR));
+    app.get('/', (req, res) => res.sendFile(path.join(CLIENT_BUILD_DIR, 'index.html')));
+  } else {
+    console.warn('⚠️ Client build not found. Run `npm run build` in frontend before starting in production.');
+  }
+}
+
 // Middleware
 app.use(cors());
 app.use(helmet());
