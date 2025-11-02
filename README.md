@@ -1,46 +1,47 @@
-# Image Converter — Fullstack (Local & Docker)
+# 🖼️ Image Converter Backend (Final Professional)
 
-This full-stack project is configured for local development and Docker-based deployment.
+A secure and efficient backend for the Image Converter app.
 
-## Quick start (local)
+## Features
+- Node.js + Express + Sharp
+- Auto-cleaning local temp storage
+- Secure middleware: Helmet, CORS, file-size limits
+- Logging via Morgan
+- Environment-based config
+- Docker support
 
-1. Install root dev dependencies (concurrently):
+## Setup
 
+### 1. Install dependencies
 ```bash
 npm install
-npm install --prefix backend
-npm install --prefix frontend
 ```
 
-2. Start both frontend & backend for development:
-
+### 2. Copy environment file
 ```bash
-npm run dev
+cp .env.example .env
 ```
 
-- Frontend dev server: http://localhost:5173
-- Backend API: http://localhost:5000/api/convert
-
-3. Build frontend for production and run backend to serve it:
-
+### 3. Run the server
 ```bash
-npm run build
-NODE_ENV=production npm start
+npm start
 ```
 
-## Docker (local container)
+Server runs by default on [http://localhost:5000](http://localhost:5000)
 
-Build and run locally with Docker (no VPS required):
+### 4. API Endpoint
 
+**POST /api/convert**  
+Form data:
+- `image`: uploaded image file  
+- `format`: desired output format (`png`, `jpg`, `webp`, etc.)
+
+Returns the converted file for download.
+
+### 5. Docker (optional)
 ```bash
-# build image
-docker build -t image-converter-fullstack .
-
-# run container mapping ports
-docker run -p 5000:5000 image-converter-fullstack
+docker build -t image-converter-backend .
+docker run -p 5000:5000 image-converter-backend
 ```
 
-The Dockerfile builds the frontend and backend into a single container and serves the built frontend from Express.
-
-## Notes
-- This setup intentionally avoids any VPS-specific hosting instructions. It targets local and Docker deployment only.
+Logs and temporary files are cleaned automatically.
